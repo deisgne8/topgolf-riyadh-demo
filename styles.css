@@ -141,3 +141,22 @@ h2,h3{font-family:"Shield Sans";font-style:normal;font-weight:700}
   .effect-copy small{font-size:12px;font-weight:600}
   .effect-copy h3{max-width:280px;margin-top:8px;font-size:22px;font-weight:600;line-height:1.08;letter-spacing:0}
 }
+
+@media(max-width:560px){
+  .hero .scroll{left:50%;right:auto;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%)}
+
+  .section{padding-top:64px;padding-bottom:64px}
+  .section-title{margin-bottom:34px}
+  .coming{padding-bottom:64px}
+  .press h2{margin-bottom:28px}
+  .gallery-head{margin-bottom:34px}
+  .faq{gap:30px}
+  .location-panel{bottom:44px}
+
+  .effect-scroll{margin-top:0;margin-bottom:-64px}
+  .effect-sticky{min-height:610px;padding:34px 0 48px}
+  .effect-deck{height:540px;justify-content:center;gap:10px;padding:0 12px}
+  .effect-edge{display:none}
+  .effect-side{flex:0 0 15%;width:15%;height:68%;border-radius:7px;filter:brightness(.68)}
+  .effect-focus{flex:0 0 60%;width:60%;height:82%;border-radius:7px}
+}
