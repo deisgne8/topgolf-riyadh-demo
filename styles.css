@@ -90,6 +90,24 @@ h2,h3{font-family:"Shield Sans";font-style:normal;font-weight:700}
 }
 
 @media(max-width:560px){
+  footer{min-height:0;gap:24px;padding:38px 24px 22px}
+  footer .footer-brand img{width:280px}
+  footer .footer-brand p{margin-top:12px;font-size:15px}
+  footer .footer-links{gap:11px}
+  footer .footer-follow{gap:12px}
+  footer strong{margin:0 0 5px;font-size:15px}
+  footer a{font-size:15px}
+  footer small{margin-top:4px;padding-top:18px;font-size:13px}
+}
+
+/* GSAP owns the experience-card motion; keep only GPU-safe rendering hints here. */
+.experience .effect-card{will-change:transform;backface-visibility:hidden}
+@media(min-width:768px){.experience .effect-focus{transform:none}}
+.experience .effect-scroll{--effect-content:0}
+@media(min-width:561px){.experience .effect-copy{opacity:var(--effect-content);transform:translate3d(calc(40px - 40px * var(--effect-content)),-50%,0);filter:blur(calc(7px - 7px * var(--effect-content)))}}
+@media(max-width:560px){.experience .effect-copy{opacity:var(--effect-content);transform:translateY(calc(26px - 26px * var(--effect-content)));filter:blur(calc(6px - 6px * var(--effect-content)))}}
+
+@media(max-width:560px){
   .nav{height:68px;padding-inline:18px}
   .nav .logo{width:190px}
   .nav-actions{gap:10px}
@@ -116,6 +134,23 @@ h2,h3{font-family:"Shield Sans";font-style:normal;font-weight:700}
   .updates h2{line-height:.98}
   .form-grid input,.form-grid select{font-size:14px}
   fieldset label,.consent{font-size:14px}
+}
+
+@media(max-width:900px){
+  .menu{position:relative}
+  .menu span{transform-origin:center;transition:transform .38s cubic-bezier(.16,1,.3,1),background-color .25s ease}
+  .menu[aria-expanded="true"] span:first-child{transform:translateY(5px) rotate(45deg)}
+  .menu[aria-expanded="true"] span:last-child{transform:translateY(-5px) rotate(-45deg)}
+}
+
+/* Keep the mobile gallery tightly stacked without unused grid tracks. */
+@media(max-width:560px){
+  .gallery-grid{display:flex;flex-direction:column;gap:20px}
+  .gallery-grid>*,
+  .gallery-grid .gallery-media,
+  .gallery-grid .wide,
+  .gallery-grid.filtered .gallery-media:not([hidden]),
+  .gallery-grid.filtered .tile:not([hidden]){flex:0 0 300px;width:100%;height:300px}
 }
 
 /* Mobile-only news cards */

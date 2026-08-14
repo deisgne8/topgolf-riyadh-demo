@@ -3,10 +3,12 @@ const mobileLinks = document.querySelector('.mobile-links');
 menu?.addEventListener('click', () => {
   const open = mobileLinks.classList.toggle('open');
   menu.setAttribute('aria-expanded', String(open));
+  menu.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
 });
 mobileLinks?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
   mobileLinks.classList.remove('open');
   menu.setAttribute('aria-expanded', 'false');
+  menu.setAttribute('aria-label', 'Open menu');
 }));
 
 const revealObserver = new IntersectionObserver(entries => {
@@ -130,42 +132,112 @@ const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const hero = document.querySelector('.hero');
 
 const effectScene = document.querySelector('.effect-scroll');
-let effectFrame = 0;
-let effectCurrent = 0;
-let effectTarget = 0;
-const measureEffect = () => {
-  if (!effectScene) return;
-  const rect = effectScene.getBoundingClientRect();
-  const distance = Math.max(1, rect.height - innerHeight);
-  const entryLead = innerHeight * 1.12;
-  const animationDistance = distance + entryLead - innerHeight * .08;
-  effectTarget = Math.min(1, Math.max(0, (entryLead - rect.top) / animationDistance));
-};
-const animateEffect = () => {
-  if (!effectScene || reducedMotion) { effectFrame = 0; return; }
-  effectCurrent += (effectTarget - effectCurrent) * .072;
-  if (Math.abs(effectTarget - effectCurrent) < .00015) effectCurrent = effectTarget;
-  const rawIntro = Math.min(1, effectCurrent / .12);
-  const intro = rawIntro * rawIntro * (3 - 2 * rawIntro);
-  const rawExpand = Math.min(1, Math.max(0, effectCurrent / .88));
-  const expand = rawExpand * rawExpand * rawExpand * (rawExpand * (rawExpand * 6 - 15) + 10);
-  effectScene.style.setProperty('--effect-progress', effectCurrent.toFixed(4));
-  effectScene.style.setProperty('--effect-intro', intro.toFixed(4));
-  effectScene.style.setProperty('--effect-expand', expand.toFixed(4));
-  const deckStartOffset = -innerHeight * .265 + 35;
-  effectScene.style.setProperty('--effect-deck-y', `${(deckStartOffset * (1 - expand)).toFixed(2)}px`);
-  if (effectCurrent !== effectTarget) effectFrame = requestAnimationFrame(animateEffect);
-  else effectFrame = 0;
-};
-const updateEffect = () => {
-  measureEffect();
-  if (!effectFrame) effectFrame = requestAnimationFrame(animateEffect);
-};
-addEventListener('scroll', updateEffect, { passive: true });
-addEventListener('resize', updateEffect);
-measureEffect();
-effectCurrent = effectTarget;
-animateEffect();
+const effectCards = effectScene ? [...effectScene.querySelectorAll('.effect-card')] : [];
+const effectSideCards = effectScene ? [...effectScene.querySelectorAll('.effect-side')] : [];
+
+if (effectScene && effectCards.length && window.gsap && window.ScrollTrigger && window.Lenis) {
+  gsap.registerPlugin(ScrollTrigger);
+
+  if (reducedMotion) {
+    gsap.set(effectScene, {
+      '--effect-progress': 1,
+      '--effect-intro': 1,
+      '--effect-expand': 1,
+      '--effect-content': 1,
+      '--effect-deck-y': '0px'
+    });
+  } else {
+    const lenis = new Lenis({
+      duration: 1.15,
+      easing: t => 1 - Math.pow(1 - t, 4),
+      smoothWheel: true,
+      smoothTouch: false,
+      wheelMultiplier: .9,
+      touchMultiplier: 1.2,
+      anchors: true
+    });
+
+    lenis.on('scroll', ScrollTrigger.update);
+    const lenisTick = time => lenis.raf(time * 1000);
+    gsap.ticker.add(lenisTick);
+    gsap.ticker.lagSmoothing(0);
+
+    gsap.set(effectCards, {
+      force3D: true,
+      willChange: 'transform'
+    });
+
+    const motionMedia = gsap.matchMedia();
+    const createExperienceTimeline = ({ mobile = false } = {}) => {
+      const timeline = gsap.timeline({
+        defaults: { ease: 'none' },
+        scrollTrigger: {
+          trigger: effectScene,
+          start: 'top 85%',
+          end: mobile ? '+=480' : '+=650',
+          scrub: .7,
+          invalidateOnRefresh: true,
+          anticipatePin: 1
+        }
+      });
+
+      timeline
+        .to(effectScene, {
+          '--effect-progress': 1,
+          duration: 1
+        }, 0)
+        .to(effectScene, {
+          '--effect-intro': 1,
+          duration: mobile ? .28 : .30
+        }, .08)
+        .to(effectScene, {
+          '--effect-expand': mobile ? .88 : .92,
+          duration: .45
+        }, .10)
+        .to(effectScene, {
+          '--effect-expand': 1,
+          duration: .20
+        }, .55)
+        .to(effectScene, {
+          '--effect-content': 1,
+          duration: .22
+        }, .60)
+        .fromTo(effectSideCards, {
+          y: 45
+        }, {
+          y: 0,
+          duration: .75,
+          immediateRender: true
+        }, 0);
+
+      if (!mobile) {
+        timeline.fromTo(effectScene, {
+          '--effect-deck-y': () => `${(-innerHeight * .265 + 35).toFixed(2)}px`
+        }, {
+          '--effect-deck-y': '0px',
+          duration: .65,
+          immediateRender: true
+        }, .10);
+      }
+
+      return () => timeline.kill();
+    };
+
+    motionMedia.add('(min-width: 768px)', () => createExperienceTimeline());
+    motionMedia.add('(max-width: 767px)', () => createExperienceTimeline({ mobile: true }));
+
+    const refreshExperience = () => ScrollTrigger.refresh();
+    addEventListener('load', refreshExperience, { once: true });
+    document.fonts?.ready.then(refreshExperience);
+
+    const cleanupExperienceMotion = () => {
+      motionMedia.revert();
+      gsap.ticker.remove(lenisTick);
+      lenis.destroy();
+    };
+    addEventListener('pagehide', cleanupExperienceMotion, { once: true });
+  }
+}
 
 const playerStory = document.querySelector('.no-golf');
 const playerImages = [...document.querySelectorAll('.player-backgrounds img')];
