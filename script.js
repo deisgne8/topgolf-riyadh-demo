@@ -358,7 +358,26 @@ document.querySelectorAll('.filters button').forEach(button => {
   });
 });
 
-document.querySelector('#signup-form')?.addEventListener('submit', event => {
+const signupForm = document.querySelector('#signup-form');
+const smsPreference = document.querySelector('#sms-preference');
+const smsField = document.querySelector('.sms-field');
+const mobileNumber = smsField?.querySelector('input[name="mobileNumber"]');
+
+const syncSmsField = () => {
+  const active = Boolean(smsPreference?.checked);
+  smsField?.classList.toggle('visible', active);
+  smsField?.setAttribute('aria-hidden', String(!active));
+  if (mobileNumber) {
+    mobileNumber.required = active;
+    if (!active) mobileNumber.value = '';
+  }
+};
+
+smsPreference?.addEventListener('change', syncSmsField);
+signupForm?.addEventListener('reset', () => requestAnimationFrame(syncSmsField));
+syncSmsField();
+
+signupForm?.addEventListener('submit', event => {
   event.preventDefault();
   event.currentTarget.querySelector('.status').textContent = 'You’re on the list. Watch this space.';
   event.currentTarget.reset();

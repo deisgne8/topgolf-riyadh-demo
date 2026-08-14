@@ -183,3 +183,13 @@ h2,h3{font-family:"Shield Sans";font-style:normal;font-weight:700}
   .form-grid label,fieldset,.consent{min-width:0;max-width:100%}
   .updates h2,.updates-content>p{width:100%;max-width:100%}
 }
+
+.sms-field{display:grid;grid-template-rows:0fr;margin:0;opacity:0;transform:translateY(-8px);transition:grid-template-rows .55s cubic-bezier(.16,1,.3,1),margin .55s cubic-bezier(.16,1,.3,1),opacity .35s ease,transform .5s cubic-bezier(.16,1,.3,1)}
+.sms-field>label{min-height:0;height:0;overflow:hidden;padding:0 20px;display:flex;align-items:center;border:1px solid transparent;border-radius:15px;background:#0000004d;-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);transition:height .55s cubic-bezier(.16,1,.3,1),border-color .35s ease}
+.sms-field>label>span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.sms-field input{width:100%;height:100%;border:0;outline:0;background:transparent;color:#fff;font-size:16px}
+.sms-field input::placeholder{color:#fff;opacity:1}
+.sms-field.visible{grid-template-rows:1fr;margin:-13px 0 28px;opacity:1;transform:none}
+.sms-field.visible>label{height:60px;border-color:#ffffff66}
+@media(max-width:560px){.sms-field.visible{margin:-13px 0 24px}.sms-field input{font-size:14px}}
+@media(prefers-reduced-motion:reduce){.sms-field,.sms-field>label{transition:none}}
