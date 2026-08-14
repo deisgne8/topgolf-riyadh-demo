@@ -193,3 +193,17 @@ h2,h3{font-family:"Shield Sans";font-style:normal;font-weight:700}
 .sms-field.visible>label{height:60px;border-color:#ffffff66}
 @media(max-width:560px){.sms-field.visible{margin:-13px 0 24px}.sms-field input{font-size:14px}}
 @media(prefers-reduced-motion:reduce){.sms-field,.sms-field>label{transition:none}}
+
+/* Mobile-only full-bleed, scroll-driven experience story */
+@media(max-width:560px){
+  .experience{padding-left:0;padding-right:0;padding-bottom:0}
+  .experience>.center{padding-left:24px;padding-right:24px}
+  .experience .effect-scroll{height:220svh;margin:34px 0 0;overflow:visible}
+  .experience .effect-sticky{position:sticky;top:0;height:100svh;min-height:0;padding:0;overflow:hidden}
+  .experience .effect-deck{width:100%;height:72svh;max-height:620px;padding:0;gap:6px;transform:none}
+  .experience .effect-edge{display:none}
+  .experience .effect-side{flex:0 0 calc(7.5% - 1.5% * var(--effect-expand));width:calc(7.5% - 1.5% * var(--effect-expand));height:calc(58% + 8% * var(--effect-expand));filter:brightness(.65);transform:none}
+  .experience .effect-focus{flex:0 0 calc(76% + 10% * var(--effect-expand));width:calc(76% + 10% * var(--effect-expand));height:calc(76% + 12% * var(--effect-expand));transform:none}
+  .experience .effect-copy{left:20px;right:18px;bottom:30px;width:auto;opacity:clamp(0,calc((var(--effect-expand) - .16) * 4),1);transform:translateY(calc(26px - 26px * var(--effect-expand)));filter:blur(calc(6px - 6px * var(--effect-expand)))}
+  .experience .effect-copy h3{max-width:100%;font-size:clamp(18px,6vw,22px)}
+}
