@@ -135,3 +135,9 @@ h2,h3{font-family:"Shield Sans";font-style:normal;font-weight:700}
   .press-card .button:hover,.press-card .button:focus-visible{background:var(--cyan);color:var(--navy)}
   .press-indicators{margin-top:24px}
 }
+
+@media(max-width:560px){
+  .effect-copy{left:22px;right:22px;bottom:44px}
+  .effect-copy small{font-size:12px;font-weight:600}
+  .effect-copy h3{max-width:280px;margin-top:8px;font-size:22px;font-weight:600;line-height:1.08;letter-spacing:0}
+}
