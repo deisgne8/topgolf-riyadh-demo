@@ -176,4 +176,10 @@ h2,h3{font-family:"Shield Sans";font-style:normal;font-weight:700}
 
   .press>.sticker{font-size:12px;padding:10px 12px}
   .press>h2{margin-top:18px;margin-bottom:26px;font-size:29px;line-height:1}
+
+  .updates-content{width:calc(100% - 48px);max-width:100%;min-width:0}
+  .updates-content form{width:100%;min-width:0}
+  .form-grid{width:100%;grid-template-columns:minmax(0,1fr)}
+  .form-grid label,fieldset,.consent{min-width:0;max-width:100%}
+  .updates h2,.updates-content>p{width:100%;max-width:100%}
 }
