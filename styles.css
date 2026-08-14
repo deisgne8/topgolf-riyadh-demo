@@ -160,3 +160,20 @@ h2,h3{font-family:"Shield Sans";font-style:normal;font-weight:700}
   .effect-side{flex:0 0 15%;width:15%;height:68%;border-radius:7px;filter:brightness(.68)}
   .effect-focus{flex:0 0 60%;width:60%;height:82%;border-radius:7px}
 }
+
+@media(max-width:560px){
+  .coming .section-title{margin-bottom:28px}
+  .coming .section-title .sticker{font-size:12px;padding:10px 12px}
+  .coming .section-title h2{margin:20px 0 0;font-size:30px;line-height:1}
+  .cards{gap:14px;padding-bottom:8px}
+  .cards article{flex:0 0 78%;min-width:0;height:390px;border-radius:13px}
+  .cards article:before{content:"";position:absolute;z-index:2;inset:35% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.88));pointer-events:none}
+  .cards article:after{left:22px;top:22px;width:62px;height:60px;background-size:606px 60px}
+  .card-content{left:22px;right:22px;bottom:22px}
+  .cards h3{font-size:17px;line-height:1.12}
+  .cards .card-content p{max-height:100px;margin-top:11px;font-size:13px;line-height:1.45;opacity:1;transform:none}
+  .cards article:hover img,.cards article:focus-within img{filter:none}
+
+  .press>.sticker{font-size:12px;padding:10px 12px}
+  .press>h2{margin-top:18px;margin-bottom:26px;font-size:29px;line-height:1}
+}
