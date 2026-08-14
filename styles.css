@@ -77,3 +77,43 @@ h2,h3{font-family:"Shield Sans";font-style:normal;font-weight:700}
 .updates-bg:after{z-index:3}.updates-content{z-index:4}
 @media(max-height:700px){.hero .scroll{bottom:16px}}
 @media(prefers-reduced-motion:reduce){.scroll,.scroll:after{transition:none}}
+
+/* Responsive type scale */
+@media(max-width:900px){
+  .hero h1{font-size:clamp(42px,8vw,56px);line-height:.96;letter-spacing:-.02em;margin:30px 0 24px}
+  .center h2,.section-title h2,.gallery-head h2,.faq h2,.press h2,.updates h2,.location h2{font-size:clamp(38px,7vw,52px);line-height:.98}
+  .no-golf h2{font-size:clamp(42px,7vw,58px)}
+  .hero-copy{max-width:780px;padding-top:86px}
+  .hero p,.center p,.faq-intro p,.location-panel p,.updates-content>p{font-size:16px}
+  .sticker,.no-golf .sticker{font-size:17px;padding:13px 17px}
+  .button{min-height:52px;padding-inline:22px}
+}
+
+@media(max-width:560px){
+  .nav{height:68px;padding-inline:18px}
+  .nav .logo{width:190px}
+  .nav-actions{gap:10px}
+  .nav-actions a[lang="ar"]{font-size:14px}
+  .menu{width:38px;padding:4px}
+  .hero{height:100svh;min-height:690px}
+  .hero-copy{width:100%;padding:72px 24px 82px}
+  .hero h1{max-width:360px;margin:22px auto 18px;font-size:clamp(30px,9.5vw,38px);line-height:.96;letter-spacing:-.01em}
+  .hero p{font-size:14px;line-height:1.4;margin-bottom:8px}
+  .hero .button{min-height:46px;margin-top:18px;padding:0 18px;font-size:13px}
+  .hero .sticker{font-size:13px;padding:10px 13px}
+  .hero .scroll{left:21px;width:72px;height:72px;bottom:max(16px,env(safe-area-inset-bottom))}
+  .center h2,.section-title h2,.gallery-head h2,.faq h2,.press h2,.updates h2,.location h2{font-size:clamp(28px,8vw,34px);line-height:1;margin-top:20px}
+  .no-golf h2{font-size:clamp(30px,8.5vw,36px);line-height:.98;margin:20px 0 18px}
+  .no-golf p,.center p,.faq-intro p,.location-panel p,.updates-content>p{font-size:14px;line-height:1.48}
+  .no-golf ul{font-size:18px;padding-top:48px}
+  .cards h3{font-size:17px}
+  .cards .card-content p{font-size:14px}
+  .tile h3{font-size:22px;line-height:1.1}
+  .tile p{font-size:14px;line-height:1.4}
+  summary{font-size:16px;line-height:1.3}
+  .press-card h3{font-size:18px;line-height:1.3}
+  .updates{min-height:900px}
+  .updates h2{line-height:.98}
+  .form-grid input,.form-grid select{font-size:14px}
+  fieldset label,.consent{font-size:14px}
+}
