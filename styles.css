@@ -117,3 +117,21 @@ h2,h3{font-family:"Shield Sans";font-style:normal;font-weight:700}
   .form-grid input,.form-grid select{font-size:14px}
   fieldset label,.consent{font-size:14px}
 }
+
+/* Mobile-only news cards */
+@media(max-width:560px){
+  .press{padding-inline:0;overflow:hidden}
+  .press>.sticker,.press>h2{margin-left:24px;margin-right:24px}
+  .press h2{margin-bottom:30px}
+  .press-carousel{overflow:visible}
+  .press-track{gap:28px}
+  .press-track .press-card{display:flex;flex-direction:column;align-items:stretch;padding:0 14px}
+  .press-card>img{height:330px;border-radius:0;object-position:center}
+  .press-card>div{position:relative;z-index:2;width:calc(100% - 16px);margin:-58px auto 0;padding:28px 24px 30px;border-radius:0;background:#20242a;box-shadow:0 18px 40px rgba(0,0,0,.28)}
+  .press-card em{display:block;margin-bottom:14px;color:var(--cyan);font-size:13px;line-height:1.2;text-transform:uppercase;letter-spacing:.04em}
+  .press-card h3{margin:0 0 16px;font-family:"Shield Sans";font-size:25px;line-height:1.08;text-transform:uppercase}
+  .press-card p{margin:0;font-size:15px;line-height:1.55;color:#f3f4f6}
+  .press-card .button{min-height:48px;margin-top:24px;padding:0 22px;border:0;background:#fff;color:var(--blue);font-size:13px;font-weight:700;text-transform:uppercase}
+  .press-card .button:hover,.press-card .button:focus-visible{background:var(--cyan);color:var(--navy)}
+  .press-indicators{margin-top:24px}
+}
