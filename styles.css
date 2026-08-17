@@ -107,6 +107,15 @@ h2,h3{font-family:"Shield Sans";font-style:normal;font-weight:700}
 @media(min-width:561px){.experience .effect-copy{opacity:var(--effect-content);transform:translate3d(calc(40px - 40px * var(--effect-content)),-50%,0);filter:blur(calc(7px - 7px * var(--effect-content)))}}
 @media(max-width:560px){.experience .effect-copy{opacity:var(--effect-content);transform:translateY(calc(26px - 26px * var(--effect-content)));filter:blur(calc(6px - 6px * var(--effect-content)))}}
 
+/* Match the sticky story length to its ScrollTrigger so it releases without dead scroll. */
+.experience .effect-scroll{height:calc(100svh + 80px)}
+
+/* Keep the player-story introduction clear of the sticky navigation. */
+.no-golf-copy>.sticker,
+.no-golf-copy>h2,
+.no-golf-copy>p{position:relative;top:24px}
+.no-golf .sticker{text-shadow:none}
+
 @media(max-width:560px){
   .nav{height:68px;padding-inline:18px}
   .nav .logo{width:190px}
@@ -242,3 +251,6 @@ h2,h3{font-family:"Shield Sans";font-style:normal;font-weight:700}
   .experience .effect-copy{left:20px;right:18px;bottom:30px;width:auto;opacity:clamp(0,calc((var(--effect-expand) - .16) * 4),1);transform:translateY(calc(26px - 26px * var(--effect-expand)));filter:blur(calc(6px - 6px * var(--effect-expand)))}
   .experience .effect-copy h3{max-width:100%;font-size:clamp(18px,6vw,22px)}
 }
+
+/* Final responsive override: the Experience story releases with its GSAP timeline. */
+.experience .effect-scroll{height:calc(100svh + 80px)}

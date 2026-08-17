@@ -174,8 +174,8 @@ if (effectScene && effectCards.length && window.gsap && window.ScrollTrigger && 
         scrollTrigger: {
           trigger: effectScene,
           start: 'top 85%',
-          end: mobile ? '+=480' : '+=650',
-          scrub: .7,
+          end: '+=800',
+          scrub: .8,
           invalidateOnRefresh: true,
           anticipatePin: 1
         }
@@ -188,25 +188,25 @@ if (effectScene && effectCards.length && window.gsap && window.ScrollTrigger && 
         }, 0)
         .to(effectScene, {
           '--effect-intro': 1,
-          duration: mobile ? .28 : .30
-        }, .08)
+          duration: mobile ? .24 : .28
+        }, .06)
         .to(effectScene, {
           '--effect-expand': mobile ? .88 : .92,
-          duration: .45
-        }, .10)
+          duration: .54
+        }, .08)
         .to(effectScene, {
           '--effect-expand': 1,
-          duration: .20
-        }, .55)
+          duration: .32
+        }, .62)
         .to(effectScene, {
           '--effect-content': 1,
-          duration: .22
-        }, .60)
+          duration: .27
+        }, .55)
         .fromTo(effectSideCards, {
           y: 45
         }, {
           y: 0,
-          duration: .75,
+          duration: .94,
           immediateRender: true
         }, 0);
 
@@ -215,9 +215,9 @@ if (effectScene && effectCards.length && window.gsap && window.ScrollTrigger && 
           '--effect-deck-y': () => `${(-innerHeight * .265 + 35).toFixed(2)}px`
         }, {
           '--effect-deck-y': '0px',
-          duration: .65,
+          duration: .86,
           immediateRender: true
-        }, .10);
+        }, .08);
       }
 
       return () => timeline.kill();
