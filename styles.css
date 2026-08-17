@@ -234,6 +234,21 @@ h2,h3{font-family:"Shield Sans";font-style:normal;font-weight:700}
   }
 }
 
+/* Static location map fallback until the Google Maps API is connected. */
+.location .map-grid{
+  background-color:#050786;
+  background-image:url('final-assets/golf-map.jpg');
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
+}
+
+/* Updated primary image for the Topgolf Experience story card. */
+.experience .effect-three{
+  background-image:url('final-assets/experience-focus.jpg');
+  background-position:center;
+}
+
 /* Keep the player-story introduction clear of the sticky navigation. */
 .no-golf-copy>.sticker,
 .no-golf-copy>h2,
@@ -408,7 +423,8 @@ h2,h3{font-family:"Shield Sans";font-style:normal;font-weight:700}
   padding:0;
   display:flex;
   align-items:center;
-  gap:12px;
+  column-gap:12px;
+  row-gap:10px;
   flex-wrap:wrap;
   border:0;
   border-radius:0;
@@ -421,7 +437,7 @@ h2,h3{font-family:"Shield Sans";font-style:normal;font-weight:700}
   position:static;
   width:100%;
   float:none;
-  margin:0 0 2px;
+  margin:0 0 6px;
   padding:0;
   color:#fff;
   font-size:14px;
@@ -432,7 +448,7 @@ h2,h3{font-family:"Shield Sans";font-style:normal;font-weight:700}
 }
 .updates fieldset label{
   min-width:132px;
-  min-height:52px;
+  min-height:48px;
   padding:0 20px;
   display:inline-flex;
   align-items:center;
@@ -469,18 +485,19 @@ h2,h3{font-family:"Shield Sans";font-style:normal;font-weight:700}
     min-height:0;
     margin:20px 0 24px;
     padding:0;
-    gap:10px;
+    column-gap:10px;
+    row-gap:8px;
   }
   .updates fieldset legend{
     position:static;
     width:100%;
-    margin-bottom:3px;
+    margin-bottom:5px;
     transform:none;
   }
   .updates fieldset label{
     flex:1 1 0;
     min-width:0;
-    min-height:50px;
+    min-height:46px;
     padding:0 14px;
     font-size:14px;
   }
