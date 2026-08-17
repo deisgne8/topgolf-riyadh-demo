@@ -98,13 +98,14 @@ document.querySelectorAll('.accordion summary').forEach(summary => {
 });
 
 const pressTrack = document.querySelector('.press-track');
+const pressCarousel = document.querySelector('.press-carousel');
 const pressSlides = pressTrack ? [...pressTrack.querySelectorAll('.press-card')] : [];
 const pressIndicators = [...document.querySelectorAll('.press-indicators button')];
 let pressIndex = 0;
 let pressTimer = 0;
 const showPressSlide = index => {
   if (!pressTrack || !pressSlides.length) return;
-  pressIndex = index % pressSlides.length;
+  pressIndex = ((index % pressSlides.length) + pressSlides.length) % pressSlides.length;
   pressTrack.style.transform = `translate3d(-${pressSlides[pressIndex].offsetLeft}px,0,0)`;
   pressIndicators.forEach((indicator, indicatorIndex) => {
     const active = indicatorIndex === pressIndex;
@@ -118,8 +119,8 @@ const startPressCarousel = () => {
   pressTimer = setInterval(() => showPressSlide(pressIndex + 1), 5200);
 };
 const stopPressCarousel = () => { clearInterval(pressTimer); pressTimer = 0; };
-document.querySelector('.press-carousel')?.addEventListener('mouseenter', stopPressCarousel);
-document.querySelector('.press-carousel')?.addEventListener('mouseleave', startPressCarousel);
+pressCarousel?.addEventListener('mouseenter', stopPressCarousel);
+pressCarousel?.addEventListener('mouseleave', startPressCarousel);
 pressIndicators.forEach((indicator, index) => indicator.addEventListener('click', () => {
   stopPressCarousel();
   showPressSlide(index);
@@ -127,6 +128,66 @@ pressIndicators.forEach((indicator, index) => indicator.addEventListener('click'
 }));
 startPressCarousel();
 addEventListener('resize', () => showPressSlide(pressIndex));
+
+if (pressCarousel && pressTrack && pressSlides.length > 1) {
+  let dragPointer = null;
+  let dragStartX = 0;
+  let dragX = 0;
+  let dragBase = 0;
+  let dragMoved = false;
+  let suppressPressClick = false;
+
+  const finishPressDrag = (cancelled = false) => {
+    if (dragPointer === null) return;
+    const distance = dragX - dragStartX;
+    const threshold = Math.min(56, pressCarousel.clientWidth * .12);
+    pressCarousel.classList.remove('is-dragging');
+    dragPointer = null;
+
+    if (!cancelled && distance <= -threshold) showPressSlide(pressIndex + 1);
+    else if (!cancelled && distance >= threshold) showPressSlide(pressIndex - 1);
+    else showPressSlide(pressIndex);
+
+    if (dragMoved) {
+      suppressPressClick = true;
+      setTimeout(() => { suppressPressClick = false; }, 0);
+    }
+    setTimeout(startPressCarousel, 1800);
+  };
+
+  pressCarousel.addEventListener('pointerdown', event => {
+    if (!event.isPrimary || (event.pointerType === 'mouse' && event.button !== 0)) return;
+    stopPressCarousel();
+    dragPointer = event.pointerId;
+    dragStartX = event.clientX;
+    dragX = event.clientX;
+    dragBase = pressSlides[pressIndex].offsetLeft;
+    dragMoved = false;
+    pressCarousel.classList.add('is-dragging');
+    pressCarousel.setPointerCapture?.(event.pointerId);
+  });
+
+  pressCarousel.addEventListener('pointermove', event => {
+    if (event.pointerId !== dragPointer) return;
+    dragX = event.clientX;
+    const distance = dragX - dragStartX;
+    if (Math.abs(distance) > 5) dragMoved = true;
+    pressTrack.style.transform = `translate3d(${distance - dragBase}px,0,0)`;
+  });
+
+  pressCarousel.addEventListener('pointerup', event => {
+    if (event.pointerId === dragPointer) finishPressDrag();
+  });
+  pressCarousel.addEventListener('pointercancel', event => {
+    if (event.pointerId === dragPointer) finishPressDrag(true);
+  });
+  pressCarousel.addEventListener('click', event => {
+    if (!suppressPressClick) return;
+    event.preventDefault();
+    event.stopPropagation();
+  }, true);
+  pressCarousel.addEventListener('dragstart', event => event.preventDefault());
+}
 
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const hero = document.querySelector('.hero');
