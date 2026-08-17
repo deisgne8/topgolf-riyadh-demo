@@ -399,3 +399,89 @@ h2,h3{font-family:"Shield Sans";font-style:normal;font-weight:700}
   .experience .effect-scroll{height:calc(76svh + 32px)}
   .experience .effect-sticky{height:76svh}
 }
+
+/* Channel preference: separate selectable pills instead of one large box. */
+.updates fieldset{
+  width:100%;
+  height:auto;
+  margin:22px 0 28px;
+  padding:0;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+}
+.updates fieldset legend{
+  position:static;
+  width:100%;
+  float:none;
+  margin:0 0 2px;
+  padding:0;
+  color:#fff;
+  font-size:14px;
+  font-weight:700;
+  line-height:1.2;
+  text-transform:none;
+  transform:none;
+}
+.updates fieldset label{
+  min-width:132px;
+  min-height:52px;
+  padding:0 20px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:11px;
+  border:1px solid rgba(255,255,255,.28);
+  border-radius:999px;
+  background:rgba(0,0,0,.34);
+  color:#fff;
+  font-size:15px;
+  line-height:1;
+  cursor:pointer;
+  -webkit-backdrop-filter:blur(8px);
+  backdrop-filter:blur(8px);
+  transition:border-color .3s ease,background-color .3s ease,transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s ease;
+}
+.updates fieldset label:hover{
+  border-color:var(--cyan);
+  transform:translateY(-2px);
+}
+.updates fieldset label:has(input:checked){
+  border-color:var(--cyan);
+  background:rgba(0,255,255,.12);
+  box-shadow:0 0 0 1px rgba(0,255,255,.12) inset,0 10px 30px rgba(0,0,0,.18);
+}
+.updates fieldset input{
+  width:17px;
+  height:17px;
+  margin:0;
+  accent-color:var(--cyan);
+}
+@media(max-width:560px){
+  .updates fieldset{
+    min-height:0;
+    margin:20px 0 24px;
+    padding:0;
+    gap:10px;
+  }
+  .updates fieldset legend{
+    position:static;
+    width:100%;
+    margin-bottom:3px;
+    transform:none;
+  }
+  .updates fieldset label{
+    flex:1 1 0;
+    min-width:0;
+    min-height:50px;
+    padding:0 14px;
+    font-size:14px;
+  }
+}
